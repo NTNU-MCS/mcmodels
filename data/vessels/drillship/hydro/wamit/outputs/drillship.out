@@ -1,94 +1,94 @@
  -----------------------------------------------------------------------
 
-                        WAMIT  Version 7.5(x64)        
+                        WAMIT  Version 7.5(x64)
 
-     Copyright (c) 1999-2023 WAMIT Incorporated                        
-     Copyright (c) 1998 Massachusetts Institute of Technology          
+     Copyright (c) 1999-2023 WAMIT Incorporated
+     Copyright (c) 1998 Massachusetts Institute of Technology
 
  -----------------------------------------------------------------------
 
      The WAMIT software performs computations of wave interactions with
      floating or submerged vessels.  WAMIT is a registered trademark of
-     WAMIT Incorporated.  This copy of the WAMIT software is licensed to 
+     WAMIT Incorporated.  This copy of the WAMIT software is licensed to
 
-            Department of Marine Technology                 
-            NTNU                                            
-            Trondheim                                       
-             
+            Department of Marine Technology
+            NTNU
+            Trondheim
+
      For educational use.                  Release date: 06 Nov 2023
 
  -----------------------------------------------------------------------
 
 
- Low-order panel method  (ILOWHI=0)                                     
-                                                                        
- Input from Geometric Data File:         CSAD.gdf                       
- Mesh generated from 3D-scanning                                        
-                                                                        
- Input from Potential Control File:      csad.pot                       
- POT file                                                               
-                                                                        
-                                                                        
- POTEN run date and starting time:        27-Mar-2025  --  17:40:29     
-   Period       Time           RAD      DIFF  (max iterations)          
-    0.3000    17:43:29          -1      -1                              
-    0.3500    17:46:24          -1      -1                              
-    0.4000    17:49:16          -1      -1                              
-    0.4500    17:52:06          -1      -1                              
-    0.5000    17:54:54          -1      -1                              
-    0.5500    17:57:39          -1      -1                              
-    0.6000    18:00:00          -1      -1                              
-    0.6500    17:43:27          -1      -1                              
-    0.7000    17:46:19          -1      -1                              
-    0.7500    17:49:07          -1      -1                              
-    0.8000    17:51:50          -1      -1                              
-    0.8500    17:54:31          -1      -1                              
-    0.9000    17:57:10          -1      -1                              
-    0.9500    17:59:30          -1      -1                              
-    1.0000    17:43:30          -1      -1                              
-    1.0500    17:46:26          -1      -1                              
-    1.1000    17:49:18          -1      -1                              
-    1.1500    17:52:08          -1      -1                              
-    1.2000    17:54:55          -1      -1                              
-    1.2500    17:57:40          -1      -1                              
-    1.3000    18:00:01          -1      -1                              
-    1.3500    17:43:27          -1      -1                              
-    1.4000    17:46:18          -1      -1                              
-    1.4500    17:49:00          -1      -1                              
-    1.5000    17:51:35          -1      -1                              
-    1.5500    17:54:11          -1      -1                              
-    1.6000    17:56:48          -1      -1                              
-    1.6500    17:59:12          -1      -1                              
-    1.7000    17:43:28          -1      -1                              
-    1.7500    17:46:21          -1      -1                              
-    1.8000    17:49:14          -1      -1                              
-    1.8500    17:52:05          -1      -1                              
-    1.9000    17:54:52          -1      -1                              
-    1.9500    17:57:36          -1      -1                              
-    2.0000    17:59:57          -1      -1                              
-    2.0500    17:43:28          -1      -1                              
-    2.1000    17:46:22          -1      -1                              
-    2.1500    17:49:14          -1      -1                              
-    2.2000    17:52:04          -1      -1                              
-    2.2500    17:54:51          -1      -1                              
-    2.3000    17:57:34          -1      -1                              
-    2.3500    17:59:54          -1      -1                              
-    2.4000    17:43:28          -1      -1                              
-    2.4500    17:46:20          -1      -1                              
-    2.5000    17:49:07          -1      -1                              
-    2.5500    17:51:51          -1      -1                              
-    2.6000    17:54:34          -1      -1                              
-    2.6500    17:57:14          -1      -1                              
-    2.7000    17:43:28          -1      -1                              
-    2.7500    17:46:21          -1      -1                              
-    2.8000    17:49:10          -1      -1                              
-    2.8500    17:51:56          -1      -1                              
-    2.9000    17:54:40          -1      -1                              
-    2.9500    17:57:22          -1      -1                              
+ Low-order panel method  (ILOWHI=0)
+
+ Input from Geometric Data File:         drillship.gdf
+ Mesh generated from 3D-scanning
+
+ Input from Potential Control File:      drillship.pot
+ POT file
+
+
+ POTEN run date and starting time:        27-Mar-2025  --  17:40:29
+   Period       Time           RAD      DIFF  (max iterations)
+    0.3000    17:43:29          -1      -1
+    0.3500    17:46:24          -1      -1
+    0.4000    17:49:16          -1      -1
+    0.4500    17:52:06          -1      -1
+    0.5000    17:54:54          -1      -1
+    0.5500    17:57:39          -1      -1
+    0.6000    18:00:00          -1      -1
+    0.6500    17:43:27          -1      -1
+    0.7000    17:46:19          -1      -1
+    0.7500    17:49:07          -1      -1
+    0.8000    17:51:50          -1      -1
+    0.8500    17:54:31          -1      -1
+    0.9000    17:57:10          -1      -1
+    0.9500    17:59:30          -1      -1
+    1.0000    17:43:30          -1      -1
+    1.0500    17:46:26          -1      -1
+    1.1000    17:49:18          -1      -1
+    1.1500    17:52:08          -1      -1
+    1.2000    17:54:55          -1      -1
+    1.2500    17:57:40          -1      -1
+    1.3000    18:00:01          -1      -1
+    1.3500    17:43:27          -1      -1
+    1.4000    17:46:18          -1      -1
+    1.4500    17:49:00          -1      -1
+    1.5000    17:51:35          -1      -1
+    1.5500    17:54:11          -1      -1
+    1.6000    17:56:48          -1      -1
+    1.6500    17:59:12          -1      -1
+    1.7000    17:43:28          -1      -1
+    1.7500    17:46:21          -1      -1
+    1.8000    17:49:14          -1      -1
+    1.8500    17:52:05          -1      -1
+    1.9000    17:54:52          -1      -1
+    1.9500    17:57:36          -1      -1
+    2.0000    17:59:57          -1      -1
+    2.0500    17:43:28          -1      -1
+    2.1000    17:46:22          -1      -1
+    2.1500    17:49:14          -1      -1
+    2.2000    17:52:04          -1      -1
+    2.2500    17:54:51          -1      -1
+    2.3000    17:57:34          -1      -1
+    2.3500    17:59:54          -1      -1
+    2.4000    17:43:28          -1      -1
+    2.4500    17:46:20          -1      -1
+    2.5000    17:49:07          -1      -1
+    2.5500    17:51:51          -1      -1
+    2.6000    17:54:34          -1      -1
+    2.6500    17:57:14          -1      -1
+    2.7000    17:43:28          -1      -1
+    2.7500    17:46:21          -1      -1
+    2.8000    17:49:10          -1      -1
+    2.8500    17:51:56          -1      -1
+    2.9000    17:54:40          -1      -1
+    2.9500    17:57:22          -1      -1
 
  Gravity:     9.81000                Length scale:        1.00000
  Water depth:        infinite       Water density:     1000.00000
- Input from configuration files:   config.wam     csad.cfg            
+ Input from configuration files:   config.wam     drillship.cfg
  Source formulation index:                   ISOR =     0
  Diffraction/scattering formulation index: ISCATT =     0
  Number of blocks used in linear system:   ISOLVE =     1
@@ -96,16 +96,16 @@
 
  BODY PARAMETERS:
 
- Total panels:   12672  Waterline panels:    288       Symmetry:   Y=0    
+ Total panels:   12672  Waterline panels:    288       Symmetry:   Y=0
  Irregular frequency index: IRR = 0
 
  XBODY =    0.0000 YBODY =    0.0000 ZBODY =    0.0000 PHIBODY =   0.0
- Volumes (VOLX,VOLY,VOLZ):          0.121304     0.121304     0.121303    
+ Volumes (VOLX,VOLY,VOLZ):          0.121304     0.121304     0.121303
  Center of Buoyancy (Xb,Yb,Zb):     0.032001     0.000000    -0.066856
- Hydrostatic and gravitational restoring coefficients: 
+ Hydrostatic and gravitational restoring coefficients:
  C(3,3),C(3,4),C(3,5):  0.97077       0.0000      0.57005E-01
  C(4,4),C(4,5),C(4,6):               0.18223E-02   0.0000     -0.38818E-02
-        C(5,5),C(5,6):                            0.46409       0.0000    
+        C(5,5),C(5,6):                            0.46409       0.0000
  Center of Gravity  (Xg,Yg,Zg):     0.000000     0.000000     0.033000
 
 
@@ -114,10 +114,10 @@
  ------------------------------------------------------------------------
  FORCE run date and starting time:                27-Mar-2025 -- 18:00:03
  ------------------------------------------------------------------------
- I/O Files:              csad.frc            csad.p2f            csad.out
+ I/O Files:              drillship.frc            drillship.p2f            drillship.out
  FRC file
 
- 
+
  ************************************************************************
 
  Wave period (sec) =  3.000000E-01        Wavenumber (kL) =  4.471448E+01
