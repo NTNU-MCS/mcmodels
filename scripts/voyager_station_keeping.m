@@ -35,6 +35,12 @@ fprintf("Filename: %s", filename);
 plot_flag = '0000';
 vessel = wamit2vessel(filename, T_draught, Lpp, Boa, plot_flag);
 
+% wamit2vessel.m's FRC-format auto-detection (frc(5,1) < 1000) misreads
+% RHO/VCG/IMASS-style .frc files for any vessel with mass < 1000 kg (see
+% fix_frc_mass_matrix.m for the full explanation) -- correct it here.
+frc_file = fullfile(processed_dir, [vessel_name, '.frc']);
+vessel = fix_frc_mass_matrix(vessel, frc_file);
+
 vessel.main.name = vessel_name;
 
 % --- Write vessel.wamit.json ---

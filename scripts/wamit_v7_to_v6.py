@@ -682,19 +682,25 @@ def discover_and_convert_files() -> int:
         raw_outputs_dir = os.path.join(wamit_dir, "outputs")
         processed_dir = os.path.join(wamit_dir, "processed")
 
-        for file in files:
-            if file.endswith(".pot") or file.endswith(".frc"):
-                input_path = os.path.join(root, file)
+        control_files = [f for f in files if f.endswith(".pot") or f.endswith(".frc")]
+        if control_files:
+            input_paths = [os.path.join(root, f) for f in control_files]
+            for input_path in input_paths:
                 print(f"Processing {input_path}...")
-                cfg_path = None
-                # look for a .cfg file in the same directory
-                for cfg_file in files:
-                    if cfg_file.endswith(".cfg"):
-                        cfg_path = os.path.join(root, cfg_file)
-                        break
-                out_cfg_path = os.path.join(processed_dir, f"{os.path.splitext(file)[0]}.cfg")
-                # convert the file
-                main([input_path, "-o", processed_dir, "--cfg", cfg_path, "--cfg-out", out_cfg_path, "--suffix", ""])
+            cfg_path = None
+            # look for a .cfg file in the same directory
+            for cfg_file in files:
+                if cfg_file.endswith(".cfg"):
+                    cfg_path = os.path.join(root, cfg_file)
+                    break
+            # .pot and .frc share the same stem (the vessel name) -- convert
+            # them in a single main() call so their cfg_lines (e.g.
+            # IALTFRC=2, only emitted while handling the .frc) accumulate
+            # into one shared out_cfg_path instead of each file's call
+            # overwriting the other's cfg snippet.
+            stem = os.path.splitext(control_files[0])[0]
+            out_cfg_path = os.path.join(processed_dir, f"{stem}.cfg")
+            main([*input_paths, "-o", processed_dir, "--cfg", cfg_path, "--cfg-out", out_cfg_path, "--suffix", ""])
 
         if os.path.isdir(raw_outputs_dir):
             os.makedirs(processed_dir, exist_ok=True)
