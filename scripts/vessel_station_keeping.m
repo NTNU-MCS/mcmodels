@@ -2,7 +2,7 @@ clear all;
 
 
 % --- Configuration ---
-vessel_name = 'voyager'; % Change this to change the target vessel
+vessel_name = strtrim(input('Enter vessel name: ', 's'));
 % ---------------------
 
 % Get the directory where this script is located

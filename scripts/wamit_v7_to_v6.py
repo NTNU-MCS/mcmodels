@@ -57,6 +57,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import shutil
 import sys
 from dataclasses import dataclass, field
 
@@ -186,6 +187,108 @@ def contains_numbers(text: str) -> bool:
         except ValueError:
             pass
     return False
+
+
+# --------------------------------------------------------------------------
+# raw numeric WAMIT output files (.1, .2, .3, ... ) -- header stripping
+# --------------------------------------------------------------------------
+
+NUMERIC_OUTPUT_EXT_RE = re.compile(r"^\.\d+$")
+
+
+def has_wamit_header(line: str) -> bool:
+    """True if `line` is a WAMIT 'NUMHDR=1' banner line rather than data
+    (its first token doesn't parse as a number)."""
+    tokens = line.split()
+    if not tokens:
+        return False
+    try:
+        float(tokens[0])
+        return False
+    except ValueError:
+        return True
+
+
+def strip_numeric_output_header(src: str, dst: str) -> bool:
+    """Copy a raw WAMIT numeric-output file (e.g. voyager.1) to `dst`,
+    stripping the leading 'WAMIT Numeric Output -- Filename ...' banner
+    line that WAMIT writes when NUMHDR=1. Older MSS parsers (wamit2vessel)
+    expect the file to start directly with numeric data. Returns True if a
+    header line was stripped."""
+    with open(src, "r", errors="replace") as f:
+        lines = f.read().splitlines()
+    stripped = bool(lines) and has_wamit_header(lines[0])
+    if stripped:
+        lines = lines[1:]
+    with open(dst, "w") as f:
+        f.write("\n".join(lines) + ("\n" if lines else ""))
+    return stripped
+
+
+def synthesize_zero_and_inf_frequency(path: str) -> bool:
+    """wamit2vessel.m requires the .1 (added mass/damping) file to include
+    a zero-frequency (period=-1) and an 'infinite'-frequency (period=0) row
+    for every A_ij/B_ij -- solves we can't get without re-running WAMIT. As
+    a stand-in, duplicate the nearest computed data:
+      A(-1,i,j) := A at the longest computed period (lowest frequency)
+      A(0,i,j)  := A at the shortest computed period (highest frequency)
+      B(-1,i,j) = B(0,i,j) := 0  (exact in infinite water depth)
+    No-op (returns False) if -1/0 rows are already present. Appends to
+    `path` in place."""
+    with open(path, "r") as f:
+        rows = [line.split() for line in f if line.strip()]
+    periods = {float(r[0]) for r in rows}
+    if -1.0 in periods or 0.0 in periods:
+        return False
+
+    t_max = max(periods)  # longest period -> lowest frequency -> zero-freq stand-in
+    t_min = min(periods)  # shortest period -> highest frequency -> inf-freq stand-in
+
+    extra = []
+    for t, i, j, a, _b in rows:
+        t = float(t)
+        if t == t_max:
+            extra.append(f"  -1.000000E+00     {i}     {j}  {a}  0.000000E+00")
+        if t == t_min:
+            extra.append(f"   0.000000E+00     {i}     {j}  {a}  0.000000E+00")
+
+    with open(path, "a") as f:
+        f.write("\n".join(extra) + "\n")
+    return True
+
+
+def synthesize_out_run_log(path: str) -> bool:
+    """wamit2vessel.m derives Nfreqs for vessel.C purely by counting lines
+    in the .out file's 'POTEN run date and starting time:' run-log table
+    (down to the blank line before ' Gravity:') -- it never parses the
+    period values there, just the line count. That table only reflects the
+    periods WAMIT actually solved, so once synthesize_zero_and_inf_frequency()
+    adds 2 extra frequency points to the .1 file, this count falls 2 short
+    of vessel.freqs and vessel.C ends up too short for viscous.m to index.
+    Insert 2 placeholder log lines right after the table header so the
+    counts agree again. No-op (returns False) if already patched or the
+    table isn't found."""
+    with open(path, "r", errors="replace") as f:
+        lines = f.read().splitlines()
+
+    start = next((i for i, l in enumerate(lines)
+                  if "POTEN run date and starting time:" in l), None)
+    if start is None:
+        return False
+    header_idx = start + 1        # 'Period  Time  RAD  DIFF ...' line
+    first_data_idx = header_idx + 1
+    if lines[first_data_idx].strip().startswith("-1"):
+        return False  # already patched (or WAMIT already solved -1/0)
+
+    placeholders = [
+        "    -1.0000    00:00:00          -1      -1",
+        "     0.0000    00:00:00          -1      -1",
+    ]
+    lines[first_data_idx:first_data_idx] = placeholders
+
+    with open(path, "w") as f:
+        f.write("\n".join(lines) + "\n")
+    return True
 
 
 # --------------------------------------------------------------------------
@@ -555,33 +658,77 @@ def write_frc_v6(frc: FrcData, path: str) -> None:
 
 def discover_and_convert_files() -> int:
     """
-    Finds all .pot and .frc files under ../data/vessels/**/inputs/*.(pot|frc|cfg).
-    Converts the .pot and .frc files and saves them to
-    ../data/vessels/**/outputs/*.(pot|frc) with the appropriate --cfg and --cfg-out settings.
+    For each .../hydro/wamit/inputs/ directory found under
+    ../data/vessels/**:
+      * converts its .pot/.frc control files (v7 -> v6, using the sibling
+        .cfg for settings) into .../hydro/wamit/processed/
+      * copies the raw WAMIT run output (.../hydro/wamit/outputs/<vessel>.N,
+        the numeric-extension files such as .1/.3/.4/.8) into the same
+        processed/ folder, stripping the NUMHDR=1 banner line that older
+        MSS parsers such as wamit2vessel.m can't read
+      * also copies the .out listing file into processed/ verbatim (no
+        header issue there, but wamit2vessel needs it alongside the rest)
+    outputs/ itself is left untouched.
     """
     # get the directory with respect to the scripts location
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(script_dir, "..", "data","vessels")
+    data_dir = os.path.join(script_dir, "..", "data", "vessels")
 
     for root, dirs, files in os.walk(data_dir):
+        if os.path.basename(root) != "inputs":
+            continue
+
+        wamit_dir = os.path.dirname(root)
+        raw_outputs_dir = os.path.join(wamit_dir, "outputs")
+        processed_dir = os.path.join(wamit_dir, "processed")
+
         for file in files:
             if file.endswith(".pot") or file.endswith(".frc"):
                 input_path = os.path.join(root, file)
-                output_dir = os.path.join(root, "..", "outputs")
-                # Check if input path has "outputs" in its path, if so, skip it to avoid converting already converted files
-                if "output" in input_path:
-                    continue
-
-                cfg_path = None
                 print(f"Processing {input_path}...")
+                cfg_path = None
                 # look for a .cfg file in the same directory
                 for cfg_file in files:
                     if cfg_file.endswith(".cfg"):
                         cfg_path = os.path.join(root, cfg_file)
                         break
-                out_cfg_path = os.path.join(output_dir, f"{os.path.splitext(file)[0]}.cfg")
+                out_cfg_path = os.path.join(processed_dir, f"{os.path.splitext(file)[0]}.cfg")
                 # convert the file
-                main([input_path, "-o", output_dir, "--cfg", cfg_path, "--cfg-out", out_cfg_path, "--suffix", ""])
+                main([input_path, "-o", processed_dir, "--cfg", cfg_path, "--cfg-out", out_cfg_path, "--suffix", ""])
+
+        if os.path.isdir(raw_outputs_dir):
+            os.makedirs(processed_dir, exist_ok=True)
+            synthesized_freqs = False
+            out_dst = None
+            for file in os.listdir(raw_outputs_dir):
+                ext = os.path.splitext(file)[1]
+                src = os.path.join(raw_outputs_dir, file)
+                dst = os.path.join(processed_dir, file)
+                if NUMERIC_OUTPUT_EXT_RE.match(ext):
+                    stripped = strip_numeric_output_header(src, dst)
+                    print(f"{src} -> {dst}" + (" (header stripped)" if stripped else ""))
+                    if ext == ".1" and synthesize_zero_and_inf_frequency(dst):
+                        synthesized_freqs = True
+                        warn(f"{dst}: WAMIT was not run with periods -1/0, so "
+                             f"zero- and 'infinite'-frequency rows were "
+                             f"synthesized from the nearest computed period "
+                             f"(A carried over, B=0) -- not real WAMIT solves.")
+                elif ext == ".out":
+                    # wamit2vessel reads .out via line-scanning (not textread),
+                    # so it tolerates the NUMHDR banner fine -- just needs to be
+                    # alongside the other files in processed/.
+                    shutil.copy2(src, dst)
+                    out_dst = dst
+                    print(f"{src} -> {dst} (copied)")
+
+            # .1's synthesized -1/0 rows only help if .out's run-log table
+            # (which vessel.C's size is derived from) is padded to match --
+            # see synthesize_out_run_log().
+            if synthesized_freqs and out_dst and synthesize_out_run_log(out_dst):
+                warn(f"{out_dst}: padded the POTEN run-log table with 2 "
+                     f"placeholder entries so wamit2vessel's frequency count "
+                     f"(read from .out) matches the synthesized .1 data; "
+                     f"otherwise vessel.C ends up too short and viscous.m errors.")
 
 
 def out_path(in_path: str, outdir: str | None, suffix: str | None = '_v6') -> str:
