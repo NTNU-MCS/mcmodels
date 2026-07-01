@@ -1,0 +1,3 @@
+[submodule "external/MSS"]
+	path = external/MSS
+	url = https://github.com/cybergalactic/MSS.git
