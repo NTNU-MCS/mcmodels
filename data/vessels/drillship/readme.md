@@ -9,7 +9,7 @@
 | Breadth           | B | 0.423 m | — |
 | Height overall    | HoA | 0.254 m | — |
 | Froude scale      | $\lambda$ | 1:90 | — |
-| Waterline / Mass | Empty | — | 22.40 kg |
+| Empty Ship / Mass | m | — | 22.40 kg |
 |   BWL / Mass     | T, m  | 55 mm | 39.90 kg |
 |   LWL / Mass     | T, m  | 110 mm | 92.73 kg |
 |   DWL / Mass     | T, m  | 133 mm | 113.51 kg |
@@ -22,7 +22,7 @@
 * Length between mooring points: 2.426 m
     - GC to bow pt: 1.219 m  
     - GC to aft pt: 1.207 m
-* 'Empty' means no batteries, ballast weights, or lids. 
+* 'Empty Ship' means no batteries, ballast weights, or lids. 
 * BWL = Battery Water Line: 6 batteries, no lids.
 * LWL = Load Water Line: 6 batteries, lids, weights (as in MC-Lab campaign 2026-06)
 * DWL = Design Water Line: 6 batteries, lids, more weights (as when made in 2015)
