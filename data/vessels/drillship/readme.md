@@ -18,7 +18,9 @@ Additional info:
 * Weight of lids: 7.5 kg
 * Weight of one battery: 2.94 kg 
 * Body origin at Geometric Center (GC)
-* Length between mooring points: 1.219m to bow and 1.207m to aft
+* Length between mooring points: 
+    - GC to bow pt: 1.219m  
+    - GC to aft pt: 1.207m
 * Empty means no batteries, ballast weights, or lids. 
 * BWL = Battery Water Line: 6 batteries, no lids.
 * LWL = Load Water Line: 6 batteries, lids, weights (as in MC-Lab campaign 2026-06)
