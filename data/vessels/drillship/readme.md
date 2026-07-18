@@ -1,7 +1,7 @@
 # C/S Inocean Cat I Drillship (CSAD) particulars
 
 
-## CSAD model:
+## CSAD model
 
 | Particular | Item | Dimension | Weight |
 | :--- | :--- | :---: | :---: |
@@ -15,13 +15,13 @@
 | Waterline / Draft | DWL | 133 mm | 113.51 kg |
 | Waterline / Draft | SWL | 149 mm | 127.96 kg |
 
-## Additional info:
+## Additional info
 * Weight of lids: 7.5 kg
 * Weight of one battery: 2.94 kg 
 * Body origin at Geometric Center (GC)
 * Length between mooring points: 2.426 m
-    - GC to bow pt: 1.219m  
-    - GC to aft pt: 1.207m
+    - GC to bow pt: 1.219 m  
+    - GC to aft pt: 1.207 m
 * 'Empty' means no batteries, ballast weights, or lids. 
 * BWL = Battery Water Line: 6 batteries, no lids.
 * LWL = Load Water Line: 6 batteries, lids, weights (as in MC-Lab campaign 2026-06)
