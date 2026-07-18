@@ -3,7 +3,7 @@
 
 CSAD model:
 
-| Particular | Item | Length | Weight |
+| Particular | Item | Dimension | Weight |
 | :--- | :--- | :---: | ---: |
 | Length overall    | LoA | 2.444 m | — |
 | Breadth           | B | 0.423 m | — |
