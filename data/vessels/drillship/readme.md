@@ -27,5 +27,6 @@
 * LWL = Load Water Line: 6 batteries, lids, weights (as in MC-Lab campaign 2026-06)
 * DWL = Design Water Line: 6 batteries, lids, more weights (as when made in 2015)
 * SWL = Summer Water Line: 6 batteries, lids, more weights (mass as when new)
+* Measurements performed July 2026
 
 
