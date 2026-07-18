@@ -21,7 +21,7 @@ Additional info:
 * Length between mooring points: 2.426 m
     - GC to bow pt: 1.219m  
     - GC to aft pt: 1.207m
-* Empty means no batteries, ballast weights, or lids. 
+* 'Empty' means no batteries, ballast weights, or lids. 
 * BWL = Battery Water Line: 6 batteries, no lids.
 * LWL = Load Water Line: 6 batteries, lids, weights (as in MC-Lab campaign 2026-06)
 * DWL = Design Water Line: 6 batteries, lids, more weights (as when made in 2015)
