@@ -24,5 +24,5 @@ Additional info:
 | Syntax      | Description | Test Text     |
 | :---        |    :----:   |          ---: |
 | Header      | Title       | Here's this   |
-| Paragraph   | Text        | And more      |
+| Paragraph   | Text | Text | And  | more   |
 
