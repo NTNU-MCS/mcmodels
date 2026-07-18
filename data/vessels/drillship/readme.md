@@ -2,15 +2,14 @@
 
 
 CSAD model:
-------------------------------------------------
+
 | Main dimensions | Waterline      | Weight    |
 ------------------------------------------------
 | LoA  | 2.444 m  | Empty |   -    |  22.40 kg |
 | B    | 0.423 m  | BWL   |  55 mm |  39.90 kg |
 | HoA  | 0.254 m  | LWL   | 110 mm |  92.73 kg | 
-------------------| DWL   | 133 mm | 113.51 kg |
+                  | DWL   | 133 mm | 113.51 kg |
                   | SWL   | 149 mm | 127.96 kg |
-                  ------------------------------
 
 Additional info:
 * Weight of lids: 7.5 kg
@@ -21,3 +20,4 @@ Additional info:
 * LWL = Load Water Line: 6 batteries, lids, weights (as in MC-Lab campaign 2026-06)
 * DWL = Design Water Line: 6 batteries, lids, more weights (as when made in 2015)
 * SWL = Summer Water Line: 6 batteries, lids, more weights (mass as when new)
+
