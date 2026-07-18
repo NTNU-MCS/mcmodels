@@ -4,7 +4,7 @@
 CSAD model:
 
 | Main dimensions | Waterline      | Weight    |
-| ---- | -------- | -------------- | --------- |
+| :--- | :---     | :---           | :---      |
 | LoA  | 2.444 m  | Empty |   -    |  22.40 kg |
 | B    | 0.423 m  | BWL   |  55 mm |  39.90 kg |
 | HoA  | 0.254 m  | LWL   | 110 mm |  92.73 kg | 
