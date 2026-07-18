@@ -21,3 +21,8 @@ Additional info:
 * DWL = Design Water Line: 6 batteries, lids, more weights (as when made in 2015)
 * SWL = Summer Water Line: 6 batteries, lids, more weights (mass as when new)
 
+| Syntax      | Description | Test Text     |
+| :---        |    :----:   |          ---: |
+| Header      | Title       | Here's this   |
+| Paragraph   | Text        | And more      |
+
