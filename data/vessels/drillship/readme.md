@@ -4,11 +4,11 @@
 ## CSAD model:
 
 | Particular | Item | Dimension | Weight |
-| :--- | :--- | :---: | ---: |
+| :--- | :--- | :---: | :---: |
 | Length overall    | LoA | 2.444 m | — |
 | Breadth           | B | 0.423 m | — |
 | Height overall    | HoA | 0.254 m | — |
-| Froude scale      | \lambda | 1:90 | — |
+| Froude scale      | $\lambda$ | 1:90 | — |
 | Waterline / Draft | Empty | — | 22.40 kg |
 | Waterline / Draft | BWL | 55 mm | 39.90 kg |
 | Waterline / Draft | LWL | 110 mm | 92.73 kg |
