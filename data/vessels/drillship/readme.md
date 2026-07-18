@@ -18,7 +18,7 @@ Additional info:
 * Weight of lids: 7.5 kg
 * Weight of one battery: 2.94 kg 
 * Body origin at Geometric Center (GC)
-* Length between mooring points: 
+* Length between mooring points: 2.426 m
     - GC to bow pt: 1.219m  
     - GC to aft pt: 1.207m
 * Empty means no batteries, ballast weights, or lids. 
