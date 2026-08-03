@@ -22,7 +22,7 @@ Each vessel has its own folder under `data/vessels/<vessel-name>/`:
 below. This is not the same as `hydro/wamit/mesh/`, which holds the
 solver-specific panel mesh (`<vessel>.gdf`) WAMIT is actually run against.
 
-## Station Keeping
+## Stationkeeping
 
 `hydro/wamit/` holds WAMIT (3D panel method) potential-flow data: added
 mass/damping, motion/force RAOs, mean drift forces, and the retardation
