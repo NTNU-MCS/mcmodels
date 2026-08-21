@@ -341,3 +341,9 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/matlab,vim,visualstudiocode,windows,macos,linux,python,octave
+
+### Project-specific ###
+# The Python template's "*.pot" rule (gettext translation templates) also
+# matches WAMIT .pot (potential control) files, which this repo needs
+# tracked -- wamit2vessel.m fails without processed/*.pot on disk.
+!data/vessels/**/*.pot

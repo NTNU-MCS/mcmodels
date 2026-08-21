@@ -12,6 +12,7 @@ into MSS-toolbox vessel structs and state-space models.
 | `discover_wamit_files.m` | List `outputs/` runs that have a matching `.cfg` (sanity check before processing) |
 | `restrict_vessel_for_state_space.m` | Trims `vessel.freqs/A/B/C` so `vessel2ss` accepts them |
 | `gdf_dims.m` | Reads `Lpp`/`Boa`/`T_draught` straight out of a `.gdf` mesh file |
+| [`fix_frc_mass_matrix.m`](fix_frc_mass_matrix.m) | Corrects `vessel.main.CG`/`vessel.MRB` for vessels under 1000 kg, where `wamit2vessel.m`'s FRC-format auto-detection misfires (see its docstring) |
 
 All the `.m` scripts add the repo root to the MATLAB/Octave path themselves
 (`addpath(genpath(base_dir))`), so just `cd` into `scripts/` and run them, or
